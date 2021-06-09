@@ -1,3 +1,11 @@
+# gold-bot
+
+Recommendation for pip setup: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
+
+
+All notes below are provided by the starter repo
+---
+
 # lichess-bot
 
 [![Python Build](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-build.yml/badge.svg)](https://github.com/ShailChoksi/lichess-bot/actions/workflows/python-build.yml)
