@@ -9,6 +9,8 @@ User: gold-bot
 
 Pass: cs4100chessbot
 
+Email: quain.i@northeastern.edu
+
 
 ## All Notes Below From [lichess-bot](https://github.com/ShailChoksi/lichess-bot)
 ---
