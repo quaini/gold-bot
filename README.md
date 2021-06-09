@@ -1,9 +1,11 @@
 # gold-bot
 
-Recommendation for pip setup: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
+Final Project for CS 4100: Artificial Intelligence at Northeastern University
+
+Helpful Resource for pip Installation: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 
 
-All notes below are provided by the starter repo
+## All Notes Below From [lichess-bot](https://github.com/ShailChoksi/lichess-bot)
 ---
 
 # lichess-bot
