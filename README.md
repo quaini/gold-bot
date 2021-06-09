@@ -4,14 +4,6 @@ Final Project for CS 4100: Artificial Intelligence at Northeastern University
 
 Helpful Resource for pip Installation: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 
-# Account Login
-User: gold-bot
-
-Pass: cs4100chessbot
-
-Email: quain.i@northeastern.edu
-
-
 ## All Notes Below From [lichess-bot](https://github.com/ShailChoksi/lichess-bot)
 ---
 
