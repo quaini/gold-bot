@@ -2,6 +2,8 @@
 
 Final Project for CS 4100: Artificial Intelligence at Northeastern University
 
+Bot Profile: https://lichess.org/@/gold-bot
+
 Helpful Resource for pip Installation: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 
 ## All Notes Below From [lichess-bot](https://github.com/ShailChoksi/lichess-bot)
@@ -90,7 +92,7 @@ pip install -r requirements.txt
 - all three main files need to be copied to the engines directory
 - the lc0.exe should be doubleclicked and the windows safesearch warning about it being unsigned should be cleared (be careful and be sure you have the genuine file)
 - Change the `engine.name` key in config.yml to `lc0.exe`, no need to edit config.yml concerning the weights file as the lc0.exe will use whatever *.pb.gz is in the same folder (have only one *pb.gz in the engines directory)
-- To start: `python lichess-bot.py` 
+- To start: `python lichess-bot.py`
 
 ## For Docker
 

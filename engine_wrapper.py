@@ -144,7 +144,7 @@ class XBoardEngine(EngineWrapper):
             options[f"egtpath {egt_type}"] = egt_paths[egt_type]
         self.engine.configure(options)
         self.last_move_info = {}
-        
+
     def report_game_result(self, game, board):
         # Send final moves, if any, to engine
         self.engine.protocol._new(board, None, {})
@@ -200,6 +200,5 @@ class XBoardEngine(EngineWrapper):
             self.engine.protocol.send_line("computer")
 
 def getHomemadeEngine():
-    raise NotImplementedError(
-        "    You haven't changed the getHomemadeEngine function yet!\n"
-        "    See section \"Creating a custom bot\" in the Readme")
+    import strategies
+    return strategies.RandomMover
