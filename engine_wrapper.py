@@ -201,4 +201,4 @@ class XBoardEngine(EngineWrapper):
 
 def getHomemadeEngine():
     import strategies
-    return strategies.RandomMover
+    return strategies.RandomMove
