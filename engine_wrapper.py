@@ -200,5 +200,6 @@ class XBoardEngine(EngineWrapper):
             self.engine.protocol.send_line("computer")
 
 def getHomemadeEngine():
-    import strategies
-    return strategies.RandomMove
+    import engines.gold_engine
+    from engines.gold_engine import GoldEngine
+    return GoldEngine
