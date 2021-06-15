@@ -1,0 +1,9 @@
+2021-06-15 17:21:07,553: [94m  
+    .   _/|
+    .  // o\
+    .  || ._)  lichess-bot 1.2.0
+    .  //__\
+    .  )___(   Play on Lichess with a bot
+    [0m
+2021-06-15 17:21:07,944: [94m  Welcome gold-bot![0m
+2021-06-15 17:21:07,944: [94m  You're now connected to https://lichess.org/ and awaiting challenges.[0m

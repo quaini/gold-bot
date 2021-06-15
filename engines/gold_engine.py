@@ -4,7 +4,11 @@ import time
 import copy
 from strategies import MinimalEngine
 from engine_wrapper import EngineWrapper
+import logging
 
+logger = logging.getLogger(__name__)
+logging.error("here1")
+print("printing here")
 class Node:
     def __init__(self, m, p): # move is from parent to node
         self.move, self.parent, self.children = m, p, []
@@ -12,8 +16,10 @@ class Node:
 
     def expand_node(self, board):
         if not board.is_game_over():
+        logging.error(f'here exapand node')
           for m in list(board.legal_moves):
             nc = Node(m, self) # new child node
+            logging.error(f'nc:{nc}')
             self.children.append(nc)
 
     def update(self, result):
@@ -52,6 +58,7 @@ class GoldEngine(MinimalEngine):
                 n.update(result)
                 n = n.parent
 
+        logging.error("+++ Process Free. Children: {}.".format(root_node.children))
         return self.best_move(root_node)
 
     # determines which node to visit with explore factor
@@ -92,7 +99,9 @@ class GoldEngine(MinimalEngine):
                 most_visits = node.visits
                 best_move = node.move
                 print("Best Move " + str(best_move))
+        return best_move
 
     def search(self, board, *args):
+        logging.error("here search")
         start_time = time.time()
         return self.mcts(board, start_time)

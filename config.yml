@@ -75,10 +75,10 @@ challenge:                   # Incoming challenges.
 #   - racingKings
 #   - threeCheck
   time_controls:             # Time controls to accept.
-    - ultrabullet
+    # - ultrabullet
     - bullet
     - blitz
-#   - rapid
+    - rapid
 #   - classical
 #   - correspondence
   modes:                     # Game modes to accept.
