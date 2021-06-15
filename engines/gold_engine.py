@@ -16,10 +16,8 @@ class Node:
 
     def expand_node(self, board):
         if not board.is_game_over():
-        logging.error(f'here exapand node')
           for m in list(board.legal_moves):
             nc = Node(m, self) # new child node
-            logging.error(f'nc:{nc}')
             self.children.append(nc)
 
     def update(self, result):
