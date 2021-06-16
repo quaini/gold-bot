@@ -5,7 +5,7 @@ import copy
 from strategies import MinimalEngine
 from engine_wrapper import EngineWrapper
 import logging
-#import numpy as np
+import math
 
 logger = logging.getLogger(__name__)
 logging.error("here1")
@@ -73,7 +73,7 @@ class GoldEngine(MinimalEngine):
         best_to_visit_node = Node(None, None)
         for child in n.children:
             logging.error("in tree_policy_child looking through children")
-            explore_bonus = child.wins / child.visits + (np.sqrt(2) * np.sqrt(math.log(child.parent.visits) / child.visits)) if child.visits > 0 else 100
+            explore_bonus = child.wins / child.visits + (math.sqrt(2) * math.sqrt(math.log(child.parent.visits) / child.visits)) if (child.visits > 0 and child.parent.visits > 0) else 100
             logging.error("explore_bonus: {}".format(explore_bonus))
             if (explore_bonus > best_explore_bonus):
                 best_explore_bonus = explore_bonus
