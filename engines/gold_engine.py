@@ -6,6 +6,7 @@ from strategies import MinimalEngine
 from engine_wrapper import EngineWrapper
 import logging
 import math
+import chess.pgn
 
 logger = logging.getLogger(__name__)
 #logging.error("here1")
@@ -33,19 +34,18 @@ class Node:
                 #logging.error("found new child")
                 return nc
 
-    def update(self, result):
+    def update(self, result, engine):
         #logging.error("in update")
         self.visits += 1
-        outcome = result.outcome().winner
+        outcome = result.outcome()
         if outcome == None:
-            self.wins += .5
-        elif outcome == True:
+            self.wins += .5 + engine.eval(result)
+        elif outcome.winner == True:
             self.wins += 1
-        elif outcome == False:
+        elif outcome.winner == False:
             x = 1
-
-        #else:
-        # CALCULATE BOARD STATE
+        else:
+            self.wins += .5
 
     def is_leaf(self):
         #logging.error("in is_leaf")
@@ -60,11 +60,11 @@ class GoldEngine(MinimalEngine):
     """
 
     """
-    def mcts(self, board, start_time):
+    def mcts(self, board, start_time, time_limit):
         logging.error("in mcts")
         root_node = Node(None, None, copy.deepcopy(board))
         leaf_nodes = [root_node]
-        while self.time_remaining(start_time):
+        while self.time_remaining(start_time, time_limit):
             #logging.error("time to calc")
             n, leaf_nodes = self.tree_policy_child(leaf_nodes)  # selection
             n = n.expand_node()                                 # expansion
@@ -72,11 +72,13 @@ class GoldEngine(MinimalEngine):
             b = copy.deepcopy(n.board)
             leaf_nodes.append(n)
             #logging.error("b: {}".format(b))
-            while not b.is_game_over():                         # simulation
+            move_count = 0
+            while not b.is_game_over() and move_count < 10:                         # simulation
                 b = self.simulation_policy_child(b)
+                move_count += 1
             result = b
             while n.has_parent():                               # backpropagation
-                n.update(result)
+                n.update(result, self)
                 n = n.parent
 
         #logging.error("+++ Process Free. Children: {}.".format(root_node.children))
@@ -108,15 +110,59 @@ class GoldEngine(MinimalEngine):
     Return:
         hasTime (boolean): is there still time to run best move calculation
     """
-    def time_remaining(self, start_time):
+    def time_remaining(self, start_time, time_limit):
         #logging.error("in time_remaining")
         #challenge = config["challenge"]
         # board.time controls
-        return time.time() - start_time < 30
+        # logging.error("White_inc: {}".format(chess.engine.Limit.white_inc))
+        #logging.error("self.enging.time_limit: {}".format(self.engine.time_limit))
+        #logging.error("time_limit: {}".format(time_limit))
+        if (isinstance(time_limit, int)):
+            return time.time() - start_time < (time_limit / 10000)
+        return time.time() - start_time < 10
+
+    def eval(self, b):
+        str_board = str(b)
+        white_count = 0
+        black_count = 0
+
+        for c in str_board:
+            if c == 'P':
+                white_count += 1
+            elif c == 'p':
+                black_count += 1
+            elif c == 'N':
+                white_count += 3
+            elif c == 'n':
+                black_count += 3
+            elif c == 'B':
+                white_count += 3
+            elif c == 'b':
+                black_count += 3
+            elif c == 'R':
+                white_count += 5
+            elif c == 'r':
+                black_count += 5
+            elif c == 'Q':
+                white_count += 9
+            elif c == 'q':
+                black_count += 9
+        return (white_count - black_count) / (white_count + black_count)  if b.turn == chess.WHITE else (black_count - white_count) / (white_count + black_count)
 
     def simulation_policy_child(self, b):
         #logging.error("in simulation_policy_child")
-        b.push(random.choice(list(b.legal_moves)))
+        best_move = None
+        best_move_score = -100
+        for move in list(b.legal_moves):
+            logging.error("In Loop\n")
+            temp_b = copy.deepcopy(b)
+            temp_b.push(move)
+            logging.error("self eval tempb: {}".format(self.eval(temp_b)))
+            if (self.eval(temp_b) > best_move_score):
+                best_move = move
+                best_move_score = self.eval(temp_b)
+        logging.error("Best_move: {}".format(best_move))
+        b.push(best_move)
         return b
 
     def best_move(self, root_node):
@@ -131,7 +177,9 @@ class GoldEngine(MinimalEngine):
                 best_move = node.move
         return best_move
 
-    def search(self, board, *args):
+    def search(self, board, time_limit, ponder):
         #logging.error("in search")
+        logging.error("time_limit: {}".format(time_limit))
+        logging.error("ponder: {}".format(ponder))
         start_time = time.time()
-        return self.mcts(board, start_time)
+        return self.mcts(board, start_time, time_limit)
