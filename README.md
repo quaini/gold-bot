@@ -6,6 +6,13 @@ Bot Profile: https://lichess.org/@/gold-bot
 
 Helpful Resource for pip Installation: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
 
+The files we contributed to that allow gold-bot to run are:
+File  | What That File Does
+------------- | -------------
+engines/gold-engine.py | Contains our implementation of the monte-carlo method. The actual engine that does the move search given a board state and time to move.
+config.yml  | Sets various settings for our bot on Lichess.
+engine_wrapper.py | Has the call to our gold-engine.
+
 ## All Notes Below From [lichess-bot](https://github.com/ShailChoksi/lichess-bot)
 ---
 
